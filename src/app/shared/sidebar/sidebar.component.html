@@ -1,0 +1,49 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }">
+      <a class="nav-link" routerLink="/dashboard" routerLinkActive #dashboard="routerLinkActive">
+        <span class="menu-title">Dashboard</span>
+        <i class="mdi mdi-home menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active' : formInvoice.isActive || listInvoice.isActive  }">
+      <a class="nav-link" (click)="invoiceCollapsed = !invoiceCollapsed" [attr.aria-expanded]="invoiceCollapsed" aria-controls="invoice">
+        <span class="menu-title">Invoice</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-receipt menu-icon"></i>
+      </a>
+      <div class="collapse" id="invoice" [ngbCollapse]="!invoiceCollapsed">
+        <ul class="nav flex-column sub-menu m-auto">
+          <li class="nav-item"> <a class="nav-link" routerLink="/pages/form-invoice" routerLinkActive="active" #formInvoice="routerLinkActive">Buat Invoice</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/pages/list-invoice" routerLinkActive="active" #listInvoice="routerLinkActive">Daftar Invoice</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{'active' : formAkad.isActive || listAkad.isActive  }">
+      <a class="nav-link" (click)="akadCollapsed = !akadCollapsed" [attr.aria-expanded]="akadCollapsed" aria-controls="akad">
+        <span class="menu-title">Surat akad</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-handshake menu-icon"></i>
+      </a>
+      <div class="collapse" id="akad" [ngbCollapse]="!akadCollapsed">
+        <ul class="nav flex-column sub-menu m-auto">
+          <li class="nav-item"> <a class="nav-link" routerLink="/pages/form-akad" routerLinkActive="active" #formAkad="routerLinkActive">Buat Surat akad</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/pages/list-akad" routerLinkActive="active" #listAkad="routerLinkActive">Daftar Surat akad</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{'active' : formPenawaran.isActive || listPenawaran.isActive  }">
+      <a class="nav-link" (click)="penawaranCollapsed = !penawaranCollapsed" [attr.aria-expanded]="penawaranCollapsed" aria-controls="penawaran">
+        <span class="menu-title">Surat Penawaran</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-jira menu-icon"></i>
+      </a>
+      <div class="collapse" id="penawaran" [ngbCollapse]="!penawaranCollapsed">
+        <ul class="nav flex-column sub-menu m-auto">
+          <li class="nav-item"> <a class="nav-link" routerLink="/pages/form-penawaran" routerLinkActive="active" #formPenawaran="routerLinkActive">Buat Surat Penawaran</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="/pages/list-penawaran" routerLinkActive="active" #listPenawaran="routerLinkActive">Daftar Surat Penawaran</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</nav>

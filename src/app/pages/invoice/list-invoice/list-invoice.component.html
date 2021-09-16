@@ -1,0 +1,43 @@
+<div class="grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title mb-3">Invoice Management</h4>
+      <p class="card-description">
+        List <code>Invoice</code>
+      </p>
+      <div class="table-responsive">
+        <table class="table table-strip table-hover">
+          <thead>
+            <tr>
+              <th>Invoice</th>
+              <th>Nama</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="loading">
+            <span class="sr-only">Loading...</span>
+            <td colspan="1" class="spinner-border text-info m-3" role="status"></td>
+            <td colspan="2">Loading please wait....</td>
+          </tbody>
+          <tbody *ngIf="!loading&&!invoiceData">
+            <tr>
+              <td colspan="3">Data Kosong</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="!loading&&invoiceData">
+            <tr *ngFor="let item of invoiceData.info_tagihan">
+              <td>{{ item.invoice }}</td>
+              <td>{{ item.nama }}</td>
+              <td>
+                <button (click)="deleteInvoice(item.invoice)" class="btn btn-sm btn-danger" ><i class="mdi mdi-18px mdi-trash-can menu-icon"></i></button>
+                <a class="btn btn-sm btn-success" [routerLink]="[ '/pages/form-invoice/edit/',item.invoice]"><i class="mdi mdi-18px mdi-border-color menu-icon"></i></a>
+                <button class="btn btn-sm btn-info" (click)="getInvoice('view',item.invoice)"><i class="mdi mdi-18px mdi-eye menu-icon"></i></button>
+                <button class="btn btn-sm btn-info" (click)="getInvoice('download',item.invoice)"><i class="mdi mdi-18px mdi-download menu-icon"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
