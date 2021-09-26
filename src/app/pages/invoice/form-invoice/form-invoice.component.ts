@@ -16,7 +16,7 @@ export class FormInvoiceComponent implements OnInit {
   formGroup : FormGroup
   newGroup : FormGroup
   tagihan : any
-  id : any = null
+  id : any
   tagihanData : any
   invoiceData : any
   res : any
@@ -45,7 +45,7 @@ export class FormInvoiceComponent implements OnInit {
       console.log('tambah invoice')
       this.loading = false
     },(Error)=>{
-      this.initForm(null,this.id)
+      this.initForm('',this.id)
       console.log('tambah invoice')
       this.loading = false
     })
@@ -212,7 +212,7 @@ export class FormInvoiceComponent implements OnInit {
   }
   invoiceNum(res){
     let invoice
-    if(res==null){
+    if(!res.data.latest_invoice){
       invoice = 1
     }
     else{

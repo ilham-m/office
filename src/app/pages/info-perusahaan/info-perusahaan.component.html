@@ -1,0 +1,98 @@
+<div class="grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title mb-3">Info Perusahaan</h4>
+      <p class="card-description">
+        Pengaturan <code>Info Perusahaan</code>
+      </p>
+      <div class="text-md-right text-sm-left my-3">
+        <button type="button" class="btn btn-info btn-sm" (click)="openModal(modal,null)">Set Info Perusahaan<i class="mdi mdi-plus-circle-outline ml-1"></i></button>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-strip table-hover">
+          <thead>
+            <tr>
+              <th>Nama Perusahaan</th>
+              <th>Alamat</th>
+              <th>No telpon</th>
+              <th>Logo</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="loading">
+            <span class="sr-only">Loading...</span>
+            <td colspan="1" class="spinner-border text-info m-3" role="status"></td>
+            <td colspan="2">Loading please wait....</td>
+          </tbody>
+          <tbody *ngIf="!loading">
+            <tr>
+              <td>{{ info.data.nama_perusahaan }}</td>
+              <td>{{ info.data.alamat }}</td>
+              <td>{{ info.data.phone }}</td>
+              <td><img src="{{ logo }}" alt=""></td>
+              <td>
+                <button class="btn btn-sm btn-success" (click)="openModal(modal,info.data.id)"><i class="mdi mdi-18px mdi-border-color menu-icon"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template class="modal fade" #modal let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel"></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div *ngIf="loading" class="spinner-border text-secpndary d-block m-auto" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <form class="forms-sample" [formGroup]="formGroup" *ngIf="!loading">
+              <div class="form-group row">
+                <label for="" class="col-sm-4 col-form-label">Nama Perusahaan</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control form-control-lg" id="" placeholder="Nama Perusahaan" formControlName="nama_perusahaan">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="subTitle" class="col-sm-4 col-form-label">Alamat</label>
+                <div class="col-sm-8">
+                  <textarea rows="3" type="text" class="form-control form-control-lg" placeholder="Alamat" formControlName="alamat"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="disc" class="col-sm-4 col-form-label">No Telpon</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control form-control-lg" id="disc" placeholder="No Telpon" formControlName="phone">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Logo</label>
+                <input type="file" #upload class="file-upload-default" (change)="uploadLogo($event)">
+                <div class="input-group col-xs-12">
+                  <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" [value]="logoName">
+                  <span class="input-group-append">
+                    <button class="file-upload-browse btn btn-gradient-primary" type="button" (click)="upload.click()">Upload</button>
+                  </span>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="[modal.close(),submit()]">Submit</button>
+      <button type="button" class="btn btn-light" data-dismiss="modal" (click)="modal.close()">Cancel</button>
+    </div>
+  </div>
+</ng-template>

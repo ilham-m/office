@@ -1,0 +1,42 @@
+<div class="grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title mb-3">Akad Management</h4>
+      <p class="card-description">
+        List <code>Akad</code>
+      </p>
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-strip table-hover">
+          <thead>
+            <tr>
+              <th>Nomer Akad</th>
+              <th>Nama Pihak Pertama</th>
+              <th>Nama Pihak Kedua</th>
+              <th>Tempat Tanggal</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="loading">
+            <span class="sr-only">Loading...</span>
+            <td colspan="1" class="spinner-border text-info m-3" role="status"></td>
+            <td colspan="2">Loading please wait....</td>
+          </tbody>
+          <tbody *ngIf="!loading&&akadData">
+            <tr *ngFor="let item of akadData.info_akad">
+              <td>{{ item.nomor_akad }}</td>
+              <td>{{ item.nama }}</td>
+              <td>{{ item.nama_2 }}</td>
+              <td>{{ item.tempat_tanggal }}</td>
+              <td>
+                <button (click)="deleteAkad(item.nomor_akad)" class="btn btn-sm btn-danger" ><i class="mdi mdi-18px mdi-trash-can menu-icon"></i></button>
+                <a class="btn btn-sm btn-success" [routerLink]="[ '/pages/form-akad/edit/',item.nomor_akad]"><i class="mdi mdi-18px mdi-border-color menu-icon"></i></a>
+                <button (click)="getAkad('view',item.nomor_akad)" class="btn btn-sm btn-info" ><i class="mdi mdi-18px mdi-eye menu-icon"></i></button>
+                <button (click)="getAkad('download',item.nomor_akad)" class="btn btn-sm btn-info"><i class="mdi mdi-18px mdi-download menu-icon"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

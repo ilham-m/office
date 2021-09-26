@@ -21,6 +21,7 @@ import { UserIdleModule } from 'angular-user-idle';
 import { LoginComponent } from './auth/login/login.component';
 export { baseUrl } from 'src/environments/environment';
 export { downloadUrl } from 'src/environments/environment';
+import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -48,6 +49,7 @@ export { downloadUrl } from 'src/environments/environment';
     ChartsModule,
     HttpClientModule,
     UserIdleModule.forRoot({idle: 14400, timeout: 18000, ping: 120}),
+    DataTablesModule,
   ],
   exports:[
     SpinnerComponent

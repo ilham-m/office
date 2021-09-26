@@ -6,8 +6,8 @@ export const environment = {
   production: false
 };
 
-export const baseUrl = 'office-api.nayakateknologi.com/api/';
-export const downloadUrl = 'office-api.nayakateknologi.com/';
+export const baseUrl = 'http://localhost:8000/api/';
+export const downloadUrl = 'http://localhost:8000/';
 
 /*
  * For easier debugging in development mode, you can import the following file

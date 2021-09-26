@@ -32,7 +32,7 @@
         </div>
       </div>
   </div>
-  <div class="card col h-50 ml-md-3 ml-0 mt-3 mt-md-0">
+  <div class="card col h-50 ml-md-3 ml-0 mt-3 mt-md-0 d-none d-md-block">
       <div class="card-body">
         <h4 class="card-title">Action</h4>
         <p class="card-description">
@@ -60,7 +60,7 @@
         Produk dan Harga yang ditawarkan
       </p>
       <div></div>
-      <div class="text-md-right text-sm-left my-3" *ngIf="!id">
+      <div class="text-md-right text-sm-left my-3">
         <button type="button" class="btn btn-info btn-sm" (click)="addNewDesk()">Tambah Penawaran<i class="mdi mdi-plus-circle-outline ml-1"></i></button>
       </div>
       <div *ngIf="loading" class="spinner-border text-info" role="status">
@@ -69,8 +69,8 @@
       <div *ngIf="!loading">
         <form [formGroup]="formGroup">
           <div  formArrayName="penawaran">
-           <div  *ngFor="let item of penawaran_produk.controls ;let i=index">
-             <div [formGroupName] = "i" class="row">
+           <div  *ngFor="let item of penawaran_produk.controls ;let index=index">
+             <div [formGroupName] = "index" class="row">
                <div class="form-group col-6">
                  <div class="">
                    <label class="">Produk yang ditawarkan</label>
@@ -87,13 +87,35 @@
                    </div>
                  </div>
                </div>
-               <div class=" form-group col-1 mt-4" *ngIf="!id">
+               <div class=" form-group col-1 mt-4">
                 <button class="btn btn-danger btn-sm" (click)="removeDesk(i)">X</button>
                </div>
              </div>
            </div>
          </div>
          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-margin row">
+  <div class="card col d-md-none h-50 ml-md-3 ml-0 mt-3 mt-md-0">
+    <div class="card-body">
+      <h4 class="card-title">Action</h4>
+      <p class="card-description">
+        Preview, download, save form
+      </p>
+      <div class="p-1">
+        <div *ngIf="loading" class="spinner-border text-info" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+       <div *ngIf="!loading">
+        <button *ngIf="!id" class="btn btn-info w-100 my-2" (click)="storePenawaran(null)"><i class="mdi mdi-18px mdi-content-save menu-icon"></i>&nbsp;Save</button>
+        <button  *ngIf="id" class="btn btn-info w-100 my-2" (click)="editPenawaran()" ><i class="mdi mdi-18px mdi-border-color menu-icon"></i>&nbsp;Edit</button>
+        <button *ngIf="!id" class="btn btn-info w-100 my-2" (click)="[storePenawaran('download')]"><i class="mdi mdi-18px mdi-download menu-icon"></i>&nbsp;Download</button>
+        <button *ngIf="!id" class="btn btn-info w-100 my-2" (click)="[storePenawaran('view')]"><i class="mdi mdi-18px mdi-eye menu-icon"></i>&nbsp;View</button>
+       </div>
       </div>
     </div>
   </div>

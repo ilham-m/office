@@ -23,8 +23,8 @@
     &:focus,
     &:active {
       .page-link {
-        background: theme-color("primary");
-        border-color: theme-color("primary");
+        background: theme-color("info");
+        border-color: theme-color("info");
         color: color(white);
       }
     }

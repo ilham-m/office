@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import Swal from "sweetalert2";
 import { downloadUrl } from 'src/environments/environment';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-list-invoice',
@@ -13,10 +14,27 @@ import { downloadUrl } from 'src/environments/environment';
 export class ListInvoiceComponent implements OnInit {
   loading : boolean
   invoiceData : any
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
   constructor(private service : InvoiceService,private router : Router) { }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      // order:[2,'desc'],
+      // pageLength: 1,
+      // processing: true,
+      // retrieve : true,
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      processing: true,
+      retrieve : true,
+    };
     this.fetchInvoice()
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   async fetchInvoice(){
@@ -30,16 +48,23 @@ export class ListInvoiceComponent implements OnInit {
         confirmButtonText: `Ya`,
         denyButtonText: `tidak`,
       }).then((result) => {
+        this.dtTrigger.next()
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
+          this.dtTrigger.next()
           this.loading = false
           this.router.navigate(["/pages/form-invoice"]);
         }else{
+          this.dtTrigger.next()
           this.loading = false
+          this.invoiceData = null
+
+
         }
       })
     })
-    if(res==null){
+
+    if(res.data.info_tagihan==''){
       Swal.fire({
         title: 'Data Kosong !',
         text: "Klik Ya untuk Membuat Invoice",
@@ -50,17 +75,19 @@ export class ListInvoiceComponent implements OnInit {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
+          this.dtTrigger.next()
           this.loading = false
           this.router.navigate(["/pages/form-invoice"]);
         }else{
-          this.loading = false
           this.invoiceData = null
+          this.dtTrigger.next()
+          this.loading = false
         }
       })
     }
     else{
       this.invoiceData = res.data
-      console.warn(this.invoiceData)
+      this.dtTrigger.next()
       this.loading = false
     }
   }
@@ -81,7 +108,6 @@ export class ListInvoiceComponent implements OnInit {
         (res : any)=>{
           this.fetchInvoice()
           this.loading = false
-          console.warn(res)
           Swal.fire('File Berhasil Terhapus', '', 'success')
         },
         (Error)=>{

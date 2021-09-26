@@ -1,0 +1,309 @@
+<div class="grid-margin row">
+  <div class="card col-sm-7 h-50">
+    <div class="card-body">
+      <h4 class="card-title">Perjanjian Kerjasama</h4>
+      <div *ngIf="loading" class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div *ngIf="!loading">
+        <form action="" [formGroup]="formGroup">
+          <div class="form-group">
+            <label for="" class="col-form-label">Nomor Akad</label>
+            <div class="">
+              <input formControlName="nomor_akad" type="text" class="form-control form-control-lg" id="" placeholder="Nomor Akad">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class=" col-form-label">Nama Surat Perjanjian</label>
+            <div class="">
+              <input type="text" formControlName="perjanjian" class="form-control form-control-lg" id="" placeholder="Nama Surat">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-form-label">Keterangan Surat</label>
+            <div class="">
+              <input formControlName="ket" type="text" class="form-control form-control-lg" id="" placeholder="Ket Surat">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-form-label">Jangka Waktu</label>
+            <div class="">
+              <input formControlName="jangka_waktu" type="text" class="form-control form-control-lg" id="" placeholder="Jangka Waktu">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-form-label">Nominal Jasa</label>
+            <div class="">
+              <input formControlName="nominal_jasa" type="text" class="form-control form-control-lg" id="" placeholder="Nominal Jasa">
+            </div>
+          </div>
+         </form>
+      </div>
+     </div>
+  </div>
+  <div class="card col-md h-50 ml-md-3 ml-0 mt-3 mt-md-0 d-none d-md-block">
+    <div class="card-body">
+      <h4 class="card-title">Action</h4>
+      <p class="card-description">
+        Preview, download, save form
+      </p>
+      <div *ngIf="loading" class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="p-1" *ngIf="!loading&&!id">
+        <button class="btn btn-info w-100 my-2" (click)="storeAkad(null)"><i class="mdi mdi-18px mdi-content-save menu-icon"></i>&nbsp;Save</button>
+        <button class="btn btn-info w-100 my-2"  (click)="storeAkad('download')"><i class="mdi mdi-18px mdi-download menu-icon"></i>&nbsp;Download</button>
+        <button class="btn btn-info w-100 my-2"  (click)="storeAkad('view')"><i class="mdi mdi-18px mdi-eye menu-icon"></i>&nbsp;View</button>
+      </div>
+      <div *ngIf="!loading&&id">
+        <button class="btn btn-info w-100 my-2" (click)="editAkad()"><i class="mdi mdi-18px mdi-border-color menu-icon"></i>&nbsp;Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grid-margin row">
+  <div class="card col">
+    <div class="card-body">
+      <div *ngIf="loading" class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div *ngIf="!loading">
+        <form class="" [formGroup]="formGroup">
+          <div class="row">
+            <div class="col">
+              <h4 class="card-title">Pihak Pertama</h4>
+              <div class="form-group">
+                <label for="" class=" col-form-label">Nama</label>
+                <div class="">
+                  <input formControlName="nama" type="text" class="form-control form-control-lg" id="" placeholder="Nama">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="" class=" col-form-label">No KTP</label>
+                <div class="">
+                  <input formControlName="nik" type="text" class="form-control form-control-lg" id="" placeholder="No KTP">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class=" col-form-label">Alamat</label>
+                <div class="">
+                  <textarea formControlName="alamat"  type="textarea" rows="3" class="form-control form-control-lg" placeholder="Alamat"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <h4 class="card-title">Pihak Kedua</h4>
+              <div class="form-group">
+                <label for="" class=" col-form-label">Nama</label>
+                <div class="">
+                  <input formControlName="nama_2"  type="text" class="form-control form-control-lg" id="" placeholder="Nama">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="" class=" col-form-label">No KTP</label>
+                <div class="">
+                  <input formControlName="nik_2" type="text" class="form-control form-control-lg" id="" placeholder="No KTP">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class=" col-form-label">Alamat</label>
+                <div class="">
+                  <textarea formControlName="alamat_2"  type="textarea" rows="3" class="form-control form-control-lg" placeholder="Alamat"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grid-margin row">
+  <div class="card col">
+    <div class="card-body">
+      <h4 class="card-title">Objek Perjanjian</h4>
+      <div class="justify-content-md-end justify-content-sm-start my-3 m-sm-2 row">
+        <button type="button" class="btn btn-info btn-sm" (click)="addObj()"><i class="mdi mdi-plus mr-1"></i>Objek</button>
+        <button type="button" class="btn btn-info btn-sm" (click)="addSub()"><i class="mdi mdi-plus mr-1"></i>Subjek</button>
+        <button type="button" class="btn btn-info btn-sm" (click)="addKet()"><i class="mdi mdi-plus mr-1"></i>Keterangan</button>
+        <button type="button" class="btn btn-danger btn-sm" (click)="clearForm()"><i class="mdi mdi-trash-can mr-1"></i>Bersihkan Form</button>
+      </div>
+      <div *ngIf="loading" class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div *ngIf="!loading">
+        <form action="" [formGroup]="formGroup">
+          <div formArrayName="objek">
+            <div *ngFor="let item of objek_perjanjian.controls; let index = index">
+              <div class="row" [formGroupName]="index">
+               <ng-container *ngIf="index==0" class="col row-sm">
+                  <div class="form-group col">
+                    <label for="" class="col-form-label">Objek Perjanjian</label>
+                    <div class="">
+                      <input formControlName="objek_perjanjian" type="text" class="form-control form-control-lg" id="" placeholder="Objek Perjanjian">
+                    </div>
+                  </div>
+                  <div class="form-group col">
+                    <label for="" class="col-form-label">Subjek</label>
+                    <div class="">
+                      <input type="text" formControlName="subjek_perjanjian" class="form-control form-control-lg" id="" placeholder="Subjek">
+                    </div>
+                  </div>
+                  <div class="form-group col">
+                    <label for="" class="col-form-label">Keterangan</label>
+                    <div class="">
+                      <input formControlName="ket_objek" type="text" class="form-control form-control-lg" id="" placeholder="Ket Objek">
+                    </div>
+                  </div>
+               </ng-container>
+               <ng-container *ngIf="index>=1&&objek_perjanjian.value[index]['objek_perjanjian']==objek_perjanjian.value[index-1]['objek_perjanjian']" class="col row-sm">
+                <ng-container *ngIf="objek_perjanjian.value[index]['subjek_perjanjian']==objek_perjanjian.value[index-1]['subjek_perjanjian']">
+                  <div class="form-group col">
+                    <label for="" class="col-form-label d-md-none d-block">Objek Perjanjian</label>
+                    <div class="">
+                      <input formControlName="objek_perjanjian" type="text" class="form-control form-control-lg d-md-none d-block" id="" placeholder="Objek Perjanjian" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group col">
+                    <label for="" class="col-form-label d-md-none d-block">Subjek</label>
+                    <div class="">
+                      <input type="text" formControlName="subjek_perjanjian" class="form-control form-control-lg d-md-none d-block" id="" placeholder="Subjek" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group col">
+                    <label for="" class="col-form-label">Keterangan</label>
+                    <div class="">
+                      <input formControlName="ket_objek" type="text" class="form-control form-control-lg" id="" placeholder="Ket Objek">
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="objek_perjanjian.value[index]['subjek_perjanjian']!=objek_perjanjian.value[index-1]['subjek_perjanjian']">
+                  <div class="form-group col">
+                    <label for="" class="col-form-label d-md-none d-block">Objek Perjanjian</label>
+                    <div class="">
+                      <input formControlName="objek_perjanjian" type="text" class="form-control form-control-lg d-md-none d-block" id="" placeholder="Objek Perjanjian" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group col">
+                    <label for="" class="col-form-label">Subjek</label>
+                    <div class="">
+                      <input type="text" formControlName="subjek_perjanjian" class="form-control form-control-lg" id="" placeholder="Subjek">
+                    </div>
+                  </div>
+                  <div class="form-group col">
+                    <label for="" class="col-form-label">Keterangan</label>
+                    <div class="">
+                      <input formControlName="ket_objek" type="text" class="form-control form-control-lg" id="" placeholder="Ket Objek">
+                    </div>
+                  </div>
+                </ng-container>
+               </ng-container>
+               <ng-container *ngIf="index>=1&&objek_perjanjian.value[index]['objek_perjanjian']!=objek_perjanjian.value[index-1]['objek_perjanjian']" class="col row-sm">
+                <div class="form-group col">
+                  <label for="" class="col-form-label">Objek Perjanjian</label>
+                  <div class="">
+                    <input formControlName="objek_perjanjian" type="text" class="form-control form-control-lg" id="" placeholder="Objek Perjanjian">
+                  </div>
+                </div>
+                <div class="form-group col">
+                  <label for="" class="col-form-label">Subjek</label>
+                  <div class="">
+                    <input type="text" formControlName="subjek_perjanjian" class="form-control form-control-lg" id="" placeholder="Subjek">
+                  </div>
+                </div>
+                <div class="form-group col">
+                  <label for="" class="col-form-label">Keterangan</label>
+                  <div class="">
+                    <input formControlName="ket_objek" type="text" class="form-control form-control-lg" id="" placeholder="Ket Objek">
+                  </div>
+                </div>
+               </ng-container>
+                <div class="form-group col-1">
+                  <label for="" class="col-form-label">&nbsp;</label>
+                  <button class="btn btn-danger btn-sm" (click)="delObj(index)">X</button>
+                </div>
+              </div>
+             </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="obj>=3" class="justify-content-md-end justify-content-sm-start my-3 m-sm-2 row">
+        <button type="button" class="btn btn-info btn-sm" (click)="addObj()"><i class="mdi mdi-plus mr-1"></i>Objek</button>
+        <button type="button" class="btn btn-info btn-sm" (click)="addSub()"><i class="mdi mdi-plus mr-1"></i>Subjek</button>
+        <button type="button" class="btn btn-info btn-sm" (click)="addKet()"><i class="mdi mdi-plus mr-1"></i>Keterangan</button>
+        <button type="button" class="btn btn-danger btn-sm" (click)="clearForm()"><i class="mdi mdi-trash-can mr-1"></i>Bersihkan Form</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grid-margin row">
+  <div class="card col">
+    <div class="card-body">
+      <h4 class="card-title">Hak Dan Kewajiban</h4>
+      <div *ngIf="loading" class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="justify-content-md-end justify-content-sm-start my-3 row">
+        <button type="button" class="btn btn-info btn-sm" (click)="addKew1()"><i class="mdi mdi-plus mr-1"></i>Kewajiban Pihak Pertama</button>
+        <button type="button" class="btn btn-info btn-sm" (click)="addKew2()"><i class="mdi mdi-plus mr-1"></i>Kewajiban Pihak Pertama</button>
+      </div>
+      <div *ngIf="!loading">
+        <form action="" [formGroup]="formGroup">
+          <div class="row">
+            <div class="form-group col"  formArrayName="kewajiban_1" >
+              <div *ngFor="let item of kewajiban_1.controls; let index = index" class="row">
+                <div class="form-group col-10">
+                  <label class="col-form-label">Kewajiban Pihak Pertama</label>
+                  <div class="" [formGroupName]="index">
+                    <textarea formControlName="kewajiban" type="textarea" rows="2" class="form-control form-control-lg" placeholder="Pihak Pertama"></textarea>
+                  </div>
+                </div>
+                <div class="form-group col-1">
+                  <label class="col-form-label">&nbsp;</label>
+                  <button class="btn btn-danger btn-sm align-content-left" (click)="delKew1(index)">X</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col"  formArrayName="kewajiban_2" >
+              <div *ngFor="let item of kewajiban_2.controls; let index = index" class="row">
+               <div class="form-group col">
+                <label class="col-form-label">Kewajiban Pihak Kedua</label>
+                <div class="" [formGroupName]="index">
+                  <textarea formControlName="kewajiban" type="textarea" rows="2" class="form-control form-control-lg" placeholder="Pihak Kedua"></textarea>
+                </div>
+               </div>
+               <div class="form-group col-1">
+                <label class="col-form-label">&nbsp;</label>
+                <button class="btn btn-danger btn-sm" (click)="delKew2(index)">X</button>
+               </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grid-margin row">
+  <div class="card col d-md-none h-50 ml-md-3 ml-0 mt-3 mt-md-0">
+    <div class="card-body">
+      <h4 class="card-title">Action</h4>
+      <p class="card-description">
+        Preview, download, save form
+      </p>
+      <div class="p-1">
+        <div *ngIf="loading" class="spinner-border text-info" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="p-1" *ngIf="!loading&&!id">
+          <button class="btn btn-info w-100 my-2" (click)="storeAkad(null)"><i class="mdi mdi-18px mdi-content-save menu-icon"></i>&nbsp;Save</button>
+          <button class="btn btn-info w-100 my-2"  (click)="storeAkad('download')"><i class="mdi mdi-18px mdi-download menu-icon"></i>&nbsp;Download</button>
+          <button class="btn btn-info w-100 my-2"  (click)="storeAkad('view')"><i class="mdi mdi-18px mdi-eye menu-icon"></i>&nbsp;View</button>
+        </div>
+        <div *ngIf="!loading&&id">
+          <button class="btn btn-info w-100 my-2" (click)="editAkad()"><i class="mdi mdi-18px mdi-border-color menu-icon"></i>&nbsp;Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

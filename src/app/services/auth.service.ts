@@ -19,4 +19,11 @@ export class AuthService {
    });
     return this.http.get<any>(baseUrl+"auth/logout", { headers : reqHeader } )
   }
+  check(token):Observable<any>{
+    var reqHeader = new HttpHeaders({
+      'accept': 'application/json',
+      'Authorization': 'Bearer ' + token
+   });
+    return this.http.get<any>(baseUrl+"auth/check", { headers : reqHeader } )
+  }
 }

@@ -1,16 +1,17 @@
 <div class="grid-margin stretch-card">
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title mb-3">Invoice Management</h4>
-      <p class="card-description">
-        List <code>Invoice</code>
+      <h4 class="card-title mb-3">Penawaran Management</h4>
+      <p class="card-description mb-5">
+        List <code>Surat Penawaran</code>
       </p>
       <div class="table-responsive">
-        <table class="table table-strip table-hover">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-strip table-hover">
           <thead>
             <tr>
-              <th>Invoice</th>
+              <th>No Surat Penawaran</th>
               <th>Nama</th>
+              <th>Tanggal</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -19,15 +20,11 @@
             <td colspan="1" class="spinner-border text-info m-3" role="status"></td>
             <td colspan="2">Loading please wait....</td>
           </tbody>
-          <tbody *ngIf="!loading&&!penawaranData">
-            <tr>
-              <td colspan="3">Data Kosong</td>
-            </tr>
-          </tbody>
           <tbody *ngIf="!loading&&penawaranData">
             <tr *ngFor="let item of penawaranData.info_penawaran">
               <td>{{ item.no_surat_penawaran }}</td>
               <td>{{ item.nama }}</td>
+              <td>{{ item.tanggal }}</td>
               <td>
                 <button class="btn btn-sm btn-danger" (click)="deletePenawaran(item.no_surat_penawaran)"><i class="mdi mdi-18px mdi-trash-can menu-icon"></i></button>
                 <a class="btn btn-sm btn-success" [routerLink]="[ '/pages/form-penawaran/edit/',item.no_surat_penawaran]"><i class="mdi mdi-18px mdi-border-color menu-icon"></i></a>

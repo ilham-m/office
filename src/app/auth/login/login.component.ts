@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import Swal from "sweetalert2";
 import { AuthService } from 'src/app/services/auth.service';
 import { UserIdleService } from 'angular-user-idle';
+import { baseUrl } from 'src/environments/environment'
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { UserIdleService } from 'angular-user-idle';
 })
 export class LoginComponent implements OnInit {
   formGroup : FormGroup
+  urlLogo : any = baseUrl+"get-logo"
   constructor(private router : Router,private authService : AuthService, private userIdle : UserIdleService) { }
 
   ngOnInit(): void {

@@ -37,7 +37,7 @@ export class PenawaranService {
   }
   editPenawaran(data,no_penawaran,token):Observable<any>{
     let encode = no_penawaran
-    encode = encode.replace(/\//g,'-')
+    encode = encode.replace(/\//g,'_')
     var reqHeader = new HttpHeaders({
       'accept': 'application/json',
       'Authorization': 'Bearer ' + token

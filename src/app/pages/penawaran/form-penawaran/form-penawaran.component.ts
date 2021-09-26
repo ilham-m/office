@@ -19,9 +19,12 @@ export class FormPenawaranComponent implements OnInit {
   res : any
   penawaran_produk : any
   penawaranData
+  i : number = 0
+  show : boolean = true
   constructor(private service :  PenawaranService,private route : ActivatedRoute,private router : Router) { }
 
   ngOnInit(): void {
+    console.log(localStorage.getItem("token"))
      let sub =  this.route.params.subscribe(params => {
       this.id = params['no_penawaran'];
       console.log(this.id)
@@ -188,14 +191,26 @@ export class FormPenawaranComponent implements OnInit {
     })
   }
   addNewDesk(){
+    // console.warn(this.penawaran_produk.value[this.i]['penawaran'])
     this.newGroup = new FormGroup({
       penawaran : new FormControl('',[Validators.required]),
       harga : new FormControl('',[Validators.required]),
     })
+    // this.i++
+    // this.show = false
     this.penawaran_produk.push(this.newGroup)
   }
+  // addNewKet(){
+  //   this.newGroup = new FormGroup({
+  //     penawaran : new FormControl('',[Validators.required]),
+  //     harga : new FormControl('',[Validators.required]),
+  //   })
+  //   this.i++
+  //   this.penawaran_produk.push(this.newGroup)
+  // }
   removeDesk(index){
     this.penawaran_produk.removeAt(index)
+    // this.i--
   }
   getPenawaranPDF(action){
     let encode = this.formGroup.get('no_surat_penawaran').value

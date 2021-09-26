@@ -21,7 +21,7 @@ export class AppComponent implements OnInit{
     // Removing Sidebar, Navbar, Footer for Documentation, Error and Auth pages
     router.events.forEach((event) => {
       if(event instanceof NavigationStart) {
-        if((event['url'] == '/')||(event['url'] == '')||(event['url'] == '/auth/login')||(event['url'] == '/user-pages/login') || (event['url'] == '/user-pages/register') || (event['url'] == '/error-pages/404') || (event['url'] == '/error-pages/500') ) {
+        if((event['url'] == '/auth/login')||(event['url'] == '/user-pages/login') || (event['url'] == '/user-pages/register') || (event['url'] == '/error-pages/404') || (event['url'] == '/error-pages/500') ) {
           this.showSidebar = false;
           this.showNavbar = false;
           this.showFooter = false;
@@ -40,6 +40,28 @@ export class AppComponent implements OnInit{
           document.querySelector('.page-body-wrapper').classList.remove('full-page-wrapper');
           document.querySelector('.content-wrapper').classList.remove('auth', 'auth-img-bg');
           document.querySelector('.content-wrapper').classList.remove('p-0');
+
+          this.authService.check(localStorage.getItem("token")).subscribe((res:any)=>{
+            console.log(res)
+          },(err)=>{
+            Swal.fire({
+              title: "Stop",
+              text: "Maaf, anda tidak memiliki akses! siahkan login terlebih dahulu!",
+              icon: "error",
+              confirmButtonText: "Tutup",
+            });
+            this.router.navigate(["auth/login"]);
+          })
+          if(!localStorage.getItem("token")){
+            Swal.fire({
+              title: "Stop",
+              text: "Maaf, anda tidak memiliki akses! siahkan login terlebih dahulu!",
+              icon: "error",
+              confirmButtonText: "Tutup",
+            });
+            this.router.navigate(["auth/login"]);
+          }
+
           //Start timer when user idle
           this.userIdle.startWatching();
 
@@ -50,15 +72,8 @@ export class AppComponent implements OnInit{
           this.userIdle.onTimeout().subscribe(() =>
           this.onTimeout()
           );
-          if(!localStorage.getItem("token")){
-            Swal.fire({
-              title: "Stop",
-              text: "Maaf, anda tidak memiliki akses! siahkan login terlebih dahulu!",
-              icon: "error",
-              confirmButtonText: "Tutup",
-            });
-            this.router.navigate(["auth/login"]);
-          }
+
+
         }
       }
     });

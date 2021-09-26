@@ -6,11 +6,12 @@
         List <code>Invoice</code>
       </p>
       <div class="table-responsive">
-        <table class="table table-strip table-hover">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-strip table-hover">
           <thead>
             <tr>
               <th>Invoice</th>
               <th>Nama</th>
+              <th>Tanggal</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -19,15 +20,11 @@
             <td colspan="1" class="spinner-border text-info m-3" role="status"></td>
             <td colspan="2">Loading please wait....</td>
           </tbody>
-          <tbody *ngIf="!loading&&!invoiceData">
-            <tr>
-              <td colspan="3">Data Kosong</td>
-            </tr>
-          </tbody>
           <tbody *ngIf="!loading&&invoiceData">
             <tr *ngFor="let item of invoiceData.info_tagihan">
               <td>{{ item.invoice }}</td>
               <td>{{ item.nama }}</td>
+              <td>{{ item.tanggal }}</td>
               <td>
                 <button (click)="deleteInvoice(item.invoice)" class="btn btn-sm btn-danger" ><i class="mdi mdi-18px mdi-trash-can menu-icon"></i></button>
                 <a class="btn btn-sm btn-success" [routerLink]="[ '/pages/form-invoice/edit/',item.invoice]"><i class="mdi mdi-18px mdi-border-color menu-icon"></i></a>

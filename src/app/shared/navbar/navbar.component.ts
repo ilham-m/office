@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
+import { baseUrl } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,6 +15,7 @@ export class NavbarComponent implements OnInit {
   public iconOnlyToggled = false;
   public sidebarToggled = false;
   dis_name = localStorage.getItem("name")
+  urlLogo : any = baseUrl+"get-logo"
   constructor(config: NgbDropdownConfig, private authService : AuthService, private router:Router) {
     config.placement = 'bottom-right';
   }
@@ -54,7 +56,7 @@ export class NavbarComponent implements OnInit {
         confirmButtonText: "Tutup",
       });
       localStorage.clear()
-      this.router.navigate(["/"])
+      this.router.navigate(["/auth/login"])
     })
   }
 
